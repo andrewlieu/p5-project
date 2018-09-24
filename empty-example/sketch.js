@@ -24,14 +24,14 @@ class BinaryTree
 
   place(node,objectnode)
   { 
-    objectnode.y = objectnode.y + 100;
+    objectnode.y = objectnode.y + screen.height/10;
     if (temp < node.value)
     {        logger("left");
 
       if (node.left == null)
       {
 
-        objectnode.x = objectnode.x-100;
+        objectnode.x = objectnode.x-screen.width/20;
 
         node.left = new Node(temp, objectnode.x,objectnode.y,node);
         actualNodeList.push(node.left);
@@ -43,7 +43,7 @@ class BinaryTree
       {
 
 
-         objectnode.x= objectnode.x-100;
+         objectnode.x= objectnode.x-screen.width/20;
 
          this.place(node.left,objectnode);
       }
@@ -51,7 +51,7 @@ class BinaryTree
     if (temp > node.value)
     {         logger("right");
       if (node.right == null)
-      {objectnode.x = objectnode.x+100;
+      {objectnode.x = objectnode.x+screen.width/20;
 
         node.right = new Node(temp, objectnode.x,objectnode.y,node);
         actualNodeList.push(node.right);
@@ -60,7 +60,7 @@ class BinaryTree
         
       }
       else if (node.right != null)
-      { objectnode.x = objectnode.x+100;
+      { objectnode.x = objectnode.x+screen.width/20;
          this.place(node.right, objectnode);
       }
     }
@@ -89,7 +89,7 @@ function draw() {
   textFont('Didot');
   fill(0)
   textAlign(CENTER)
-  text("Binary Tree",screen.width/2,100);
+  text("Binary Tree",screen.width/2,screen.height/10);
   buttonLeftClicked();
   buttonRightClicked();
   currentNumber()
@@ -195,45 +195,48 @@ function logger(text)
 function buttons()
 {
   fill(255);
-  rect(500,135,50,30)
-  rect(600,135,50,30)
+  rect(3*screen.width/10,1.5*screen.height/10,50,30)
+  rect(4*screen.width/10,1.5*screen.height/10,50,30)
   fill(0)
-  text("left",525,185)
-  text("right",625,185)
+  text("left",3*screen.width/10,2.25*screen.height/10)
+  text("right",4*screen.width/10,2.25*screen.height/10)
 }
 
 //makes left button darker when held, else regular
 function buttonLeftClicked()
 {
-  if (mouseIsPressed && mouseX >= 500 && mouseX <= 550 && mouseY >=135 && mouseY < 165 )
+  if (mouseIsPressed && mouseX >= 3*screen.width/10 && mouseX <= 3*screen.width/10+50
+   && mouseY >=1.5*screen.height/10 && mouseY < 1.5*screen.height/10+30 )
   { 
     fill('rgba(117,150,118, .2)')
-      rect(500,135,50,30) 
+      rect(3*screen.width/10,1.5*screen.height/10,50,30) 
       
     } 
      else{ 
       fill(255)
-      rect(500,135,50,30)
+      rect(3*screen.width/10,1.5*screen.height/10,50,30)
       
   }
   
   }
   //makes right button darker when held, else regular
   function buttonRightClicked(){
-    if (mouseIsPressed && mouseX >= 600 && mouseX <= 650 && mouseY >=135 && mouseY < 165)
+    if (mouseIsPressed && mouseX >= 4*screen.width/10 && mouseX <= 4*screen.width/10+50
+     && mouseY >=1.5*screen.height/10&& mouseY < 1.5*screen.height/10+30)
     { 
       fill('rgba(117,150,118, .2)')  
-      rect(600,135,50,30)
+      rect(4*screen.width/10,1.5*screen.height/10,50,30)
       
     }
     else{fill(255)
-      rect(600,135,50,30)
+      rect(4*screen.width/10,1.5*screen.height/10,50,30)
 
    }}
    //when mouse is pressed at these locations, does an action (buttons)
    function mousePressed()
    {  if (actualNodeList.length!=0)  
-	   { if(mouseX >= 500 && mouseX <= 550 && mouseY >=135 && mouseY < 165 && loggerlist[0] == "left" && loggerlist[1] == "blank")
+	   { if(mouseX >= 3*screen.width/10 && mouseX <= 3*screen.width/10+50
+      && mouseY >=1.5*screen.height/10 && mouseY < 1.5*screen.height/10+30 && loggerlist[0] == "left" && loggerlist[1] == "blank")
 	    {
 				lineLeft(actualNodeList[0]);
 	        	fill(0)
@@ -251,7 +254,8 @@ function buttonLeftClicked()
   				fill('rgba(239,237,124,1)') //yellow
   				ellipse(point.x,point.y,10,10)
 	    }
-	    else if(mouseX >= 500 && mouseX <= 550 && mouseY >=135 && mouseY < 165 && loggerlist[0] == "left" 
+	    else if(mouseX >=3*screen.width/10 && mouseX <= 3*screen.width/10+50
+       && mouseY >=1.5*screen.height/10 && mouseY < 1.5*screen.height/10+30 && loggerlist[0] == "left" 
 	    	&& (loggerlist[1] == "right" || loggerlist[1] == "left"))
 	    {
 	    	loggerlist = loggerlist.splice(1)
@@ -260,21 +264,23 @@ function buttonLeftClicked()
 	    	fill('rgba(159,211,95,1)') //green
 	    		noStroke()
 				ellipse(point.x,point.y,10,10)
-				point.x = point.x -100
-				point.y = point.y+ 90
+				point.x = point.x - screen.width/20
+				point.y = point.y+ screen.height/10 
 				noStroke()
   				fill('rgba(239,237,124,1)') //yellow
   				ellipse(point.x,point.y,10,10)
 	    }
-	    else if(mouseX >= 500 && mouseX <= 550 && mouseY >=135 && mouseY < 165 && loggerlist[0] == "right")
+	    else if(mouseX >= 3*screen.width/10 && mouseX <= 3*screen.width/10+50
+       && mouseY >=1.5*screen.height/10 && mouseY <= 1.5*screen.height/10+30 && loggerlist[0] == "right")
 	    {
 	      textSize(12)
 	      fill(255)
-	      text("Are you sure the number is smaller?", 510, 120);
+	      text("Are you sure the number is smaller?", 3*screen.width/10,1.25*screen.height/10);
 	      noStroke();
-	      setTimeout(function() { fill('rgba(159,211,95,1)'), rect(420,107,200,15)},3000)
+	      setTimeout(function() { fill('rgba(159,211,95,1)'), rect(2.35*screen.width/10,1.35*screen.height/10-20,230,15)},3000)
 	    }
-	    else if (mouseX >= 600 && mouseX <= 650 && mouseY >=135 && mouseY < 165 && loggerlist[0] =="right" && loggerlist[1] == "blank")
+	    else if (mouseX >= 4*screen.width/10 && mouseX <= 4*screen.width/10+50 && mouseY >=1.5*screen.height/10 
+        && mouseY < 1.5*screen.height/10+30 && loggerlist[0] =="right" && loggerlist[1] == "blank")
 	    {
 				lineRight(actualNodeList[0]);
 	        	fill(0)
@@ -292,7 +298,8 @@ function buttonLeftClicked()
   				fill('rgba(239,237,124,1)') //yellow
   				ellipse(point.x,point.y,10,10)
 	    }
-	    else if (mouseX >= 600 && mouseX <= 650 && mouseY >=135 && mouseY < 165 && loggerlist[0] =="right" 
+	    else if (mouseX >= 4*screen.width/10  && mouseX <= 4*screen.width/10 +50 &&
+       mouseY >=1.5*screen.height/10  && mouseY < 1.5*screen.height/10 +30 && loggerlist[0] =="right" 
 	    	&& (loggerlist[1] == "right" || loggerlist[1] == "left"))
 	    {
 	    	loggerlist = loggerlist.splice(1)
@@ -300,18 +307,18 @@ function buttonLeftClicked()
 	    	fill('rgba(159,211,95,1)') //green
 	    		noStroke()
 				ellipse(point.x,point.y,10,10)
-				point.x = point.x + 100
-				point.y = point.y + 90
+				point.x = point.x + screen.width/20
+				point.y = point.y + screen.height/10
   				fill('rgba(239,237,124,1)') //yellow
   				ellipse(point.x,point.y,10,10)
 	    }
-	    else if (mouseX >= 600 && mouseX <= 650 && mouseY >=135 && mouseY < 165 && loggerlist[0] == "left")
+	    else if (mouseX >= 4*screen.width/10 && mouseX <= 4*screen.width/10 && mouseY >=1.5*screen.height/10  && mouseY <1.5*screen.height/10  && loggerlist[0] == "left")
 	     {
 	       textSize(12)
 	       fill(255)
-	      text("Are you sure the number is bigger?", 510, 130);
+	      text("Are you sure the number is bigger?", 4*screen.width/10,1.25*screen.height/10);
 	      noStroke();
-	      setTimeout(function() { fill('rgba(159,211,95,1)'), rect(420,117,200,20)},3000)
+	      setTimeout(function() { fill('rgba(159,211,95,1)'), rect(3.25*screen.width/10,1.35*screen.height/10-20,230,20)},3000)
 	     }
 	     if (loggerlist[0] == "blank")
 	     	{loggerlist = loggerlist.splice(1)}
@@ -330,15 +337,15 @@ function currentNumber()
 { 
   fill('rgba(159,211,95,1)')
   noStroke()
-  rect(460,190,230,30);
+  rect(2.2*screen.width/10,screen.height/22,230,30);
   textSize(20)
   fill(0)
   if (actualNodeList[0] != undefined )
-  {text("current number: " + actualNodeList[0].value, 575,210)}
+  {text("current number: " + actualNodeList[0].value, 3*screen.width/10,screen.height/15)}
 	if(actualNodeList[0] ==101)
 		{fill('rgba(159,211,95,1)')
 		noStroke()
-		rect(460,190,240,30)}
+		rect(2.25*screen.width/10,screen.height/15,240,30)}
 }
 
 function input()
